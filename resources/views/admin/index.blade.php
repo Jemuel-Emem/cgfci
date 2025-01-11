@@ -1,3 +1,9 @@
-<div>
-    <!-- Breathing in, I calm body and mind. Breathing out, I smile. - Thich Nhat Hanh -->
-</div>
+<x-admin-layout>
+    <div>
+
+        <div class="  h-cover">
+            <livewire:admin.index />
+        </div>
+
+    </div>
+</x-admin-layout>
