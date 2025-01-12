@@ -17,13 +17,19 @@ class DatabaseSeeder extends Seeder
          \App\Models\User::factory()->create([
              'name' => 'admin',
              'email' => 'admin@gmail.com',
-             'is_admin' =>1
+             'is_admin' =>1,
+             'password' => 'password',
+             'number' => '0808',
+             'membership_fee' => 'dsdsd',
          ]);
 
          \App\Models\User::factory()->create([
             'name' => 'test',
             'email' => 'test@gmail.com',
-            'is_admin' =>0
+            'is_admin' =>0,
+            'password' => 'password',
+            'number' => '080',
+            'membership_fee' => 'sasasa',
         ]);
     }
 }

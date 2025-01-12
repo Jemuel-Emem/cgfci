@@ -95,7 +95,7 @@
                 </li>
 
                 <li>
-                    <a href=""
+                    <a href="{{ route('admin.membership') }}"
                         class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                         <i class="ri-group-2-fill"></i>
                         <span class="ml-3">Membership</span>
@@ -103,7 +103,7 @@
                 </li>
 
                 <li>
-                    <a href=""
+                    <a href="{{ route('admin.members') }}"
                         class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                         <i class="ri-group-2-fill"></i>
                         <span class="ml-3">Members</span>

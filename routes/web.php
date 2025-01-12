@@ -32,6 +32,14 @@ Route::middleware([
             return view('admin.index');
         })->name('Admindashboard');
 
+        Route::get('/admin.membership', function(){
+            return view('admin.membership');
+        })->name('admin.membership');
+
+        Route::get('/admin.members', function(){
+            return view('admin.members');
+        })->name('admin.members');
+
 
      });
 
