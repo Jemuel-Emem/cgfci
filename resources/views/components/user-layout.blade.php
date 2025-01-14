@@ -67,7 +67,7 @@
                 </div>
                 <nav :class="{'flex': open, 'hidden': !open}" class="flex-col items-center flex-grow hidden md:pb-0 md:flex md:justify-end md:flex-row">
                     <a href="{{ route('user-dashboard') }}" class="px-2 py-2 text-sm text-white lg:px-6 md:px-3 hover:text-cyan-600 lg:ml-auto">Dashboard</a>
-                    <a href="" class="px-2 py-2 text-sm text-white lg:px-6 md:px-3 hover:text-cyan-600">Apply Plan</a>
+                    <a href="{{ route('user-membershipform') }}" class="px-2 py-2 text-sm text-white lg:px-6 md:px-3 hover:text-cyan-600">Apply Plan</a>
                     <a href="" class="px-2 py-2 text-sm text-white lg:px-6 md:px-3 hover:text-cyan-600">Pay my Plan</a>
                     <a href="" class="px-2 py-2 text-sm text-white lg:px-6 md:px-3 hover:text-cyan-600">Payment History</a>
 

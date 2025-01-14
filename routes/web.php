@@ -48,6 +48,10 @@ Route::middleware([
                return view('user.index');
            })->name('user-dashboard');
 
+           Route::get('/user.membershipform', function(){
+            return view('user.membershipform');
+        })->name('user-membershipform');
+
 
 
 

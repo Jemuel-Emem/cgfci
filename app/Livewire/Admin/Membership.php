@@ -1,31 +1,58 @@
 <?php
 
-namespace App\Livewire\Admin;
-
+namespace App\Livewire\User;
+use App\Models\Beneficiaries;
+use App\Models\Members;
 use App\Models\User;
 use Livewire\Component;
 
-class Membership extends Component
+class Membershipform extends Component
 {
-    public function approve($userId)
-    {
-        $user = User::findOrFail($userId);
-        $user->approval_request = true; // Assuming this field tracks approval status
-        $user->save();
+    public $beneficiaryCount = 1; // Default to 1 beneficiary
+    public $beneficiaries = []; // Holds beneficiary data
 
-        session()->flash('message', 'User approved successfully.');
+    public function mount()
+    {
+        $this->initializeBeneficiaries();
     }
 
-    public function decline($userId)
+    public function initializeBeneficiaries()
     {
-        $user = User::findOrFail($userId);
-        $user->delete(); // Or update a status field to mark as declined
-        session()->flash('message', 'User declined successfully.');
+        $this->beneficiaries = array_fill(0, $this->beneficiaryCount, ['name' => '', 'birthdate' => '']);
+    }
+
+    public function updateBeneficiaries()
+    {
+        $this->initializeBeneficiaries(); // Reinitialize with the specified number
+    }
+
+    public function applyNow()
+    {
+        
+        $this->validate([
+            'beneficiaries.*.name' => 'required|string',
+            'beneficiaries.*.birthdate' => 'required|date',
+        ]);
+
+
+        $user = User::create([
+
+        ]);
+
+        foreach ($this->beneficiaries as $beneficiary) {
+            Beneficiaries::create([
+                'user_id' => $user->id,
+                'name' => $beneficiary['name'],
+                'birthdate' => $beneficiary['birthdate'],
+            ]);
+        }
+
+
+        session()->flash('message', 'Application submitted successfully!');
     }
 
     public function render()
     {
-        $users = User::where('is_admin', 0)->get();
-        return view('livewire.admin.membership', compact('users'));
+        return view('livewire.user.membershipform');
     }
 }
