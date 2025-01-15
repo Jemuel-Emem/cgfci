@@ -1,63 +1,86 @@
-<div class="p-6 bg-white shadow rounded-lg">
+<div>
+    <h1 class="text-xl font-bold mb-4">Members</h1>
+
+    <!-- Members Table -->
+    <table class="min-w-full bg-white shadow-md rounded">
+        <thead>
+            <tr class="bg-gray-200 text-left text-sm font-semibold">
+
+                <th class="py-2 px-4">Name</th>
+                <th class="py-2 px-4">Address</th>
+                <th class="py-2 px-4">Religion</th>
+                <th class="py-2 px-4">Status</th>
+                <th class="py-2 px-4">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($members as $member)
+                <tr class="border-t">
+
+                    <td class="py-2 px-4">{{ $member->first_name }} {{ $member->middle_initial }} {{ $member->last_name }}</td>
+                    <td class="py-2 px-4">{{ $member->address }}</td>
+                    <td class="py-2 px-4">{{ $member->religion }}</td>
+                    <td class="py-2 px-4">{{ $member->status }}</td>
+                    <td class="py-2 px-4 space-y-2">
+                        <button
+                            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                            wire:click="viewBeneficiaries({{ $member->id }})">
+                            View Beneficiaries
+                        </button>
+                        <button
+                        class="px-4 py-2 rounded text-white
+                               {{ in_array($member->status, ['approved', 'declined']) ? 'bg-gray-500 cursor-not-allowed' : 'bg-green-500 hover:bg-green-600' }}"
+                        wire:click="approveMember({{ $member->id }})"
+                        {{ in_array($member->status, ['approved', 'declined']) ? 'disabled' : '' }}>
+                        Approve
+                    </button>
+
+                    <button
+                        class="px-4 py-2 rounded text-white
+                               {{ in_array($member->status, ['approved', 'declined']) ? 'bg-gray-500 cursor-not-allowed' : 'bg-red-500 hover:bg-red-600' }}"
+                        wire:click="declineMember({{ $member->id }})"
+                        {{ in_array($member->status, ['approved', 'declined']) ? 'disabled' : '' }}>
+                        Decline
+                    </button>
 
 
-    @if (session()->has('message'))
-        <div class="p-4 mb-4 text-green-700 bg-green-100 rounded-lg">
-            {{ session('message') }}
-        </div>
-    @endif
-
-    @if ($users->isEmpty())
-        <p class="text-gray-700">No pending memberships to display.</p>
-    @else
-        <table class="min-w-full border-collapse">
-            <thead>
-                <tr class="bg-gray-200 text-left">
-                    <th class="border px-4 py-2">Name</th>
-                    <th class="border px-4 py-2">Email</th>
-                    <th class="border px-4 py-2">Number</th>
-                    <th class="border px-4 py-2">Membership Fee</th>
-                    <th class="border px-4 py-2">Actions</th>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach ($users as $user)
-                    <tr class="border-t">
-                        <td class="border px-4 py-2">{{ $user->name }}</td>
-                        <td class="border px-4 py-2">{{ $user->email }}</td>
-                        <td class="border px-4 py-2">{{ $user->number }}</td>
-                        <td class="border px-4 py-2">
-                            @if ($user->membership_fee)
-                                <img src="{{ asset('storage/' . $user->membership_fee) }}" alt="Photo" class="w-16 h-16 rounded-full">
-                            @else
-                                <span class="text-gray-500">No Photo</span>
-                            @endif
-                        </td>
-                        <td class="border px-4 py-2">
-
-                            <button
-                                wire:click="approve({{ $user->id }})"
-                                class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed"
-                                wire:loading.attr="disabled"
-                                wire:target="approve({{ $user->id }})"
-                                @if($user->approval_request == true) disabled @endif>
-                                Approve
-                            </button>
+            @endforeach
+        </tbody>
+    </table>
 
 
-                            <button
-                                wire:click="decline({{ $user->id }})"
-                                class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed"
-                                wire:loading.attr="disabled"
-                                wire:target="decline({{ $user->id }})"
-                                @if($user->approval_request == true) disabled @endif>
-                                Decline
-                            </button>
-                        </td>
+    @if ($showModal)
+        <div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+            <div class="bg-white w-1/2 rounded-lg shadow-lg p-4">
+                <h2 class="text-lg font-bold mb-4">Beneficiaries</h2>
 
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+                <table class="min-w-full bg-gray-100 shadow rounded">
+                    <thead>
+                        <tr class="bg-gray-300 text-left text-sm font-semibold">
+
+                            <th class="py-2 px-4">Name</th>
+                            <th class="py-2 px-4">Birthdate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($beneficiaries as $beneficiary)
+                            <tr class="border-t">
+
+                                <td class="py-2 px-4">{{ $beneficiary->beneficiary_name }}</td>
+                                <td class="py-2 px-4">{{ $beneficiary->birthdate }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
+                <button
+                    class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 mt-4"
+                    wire:click="closeModal">
+                    Close
+                </button>
+            </div>
+        </div>
     @endif
 </div>

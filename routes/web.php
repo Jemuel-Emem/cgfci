@@ -40,6 +40,10 @@ Route::middleware([
             return view('admin.members');
         })->name('admin.members');
 
+        Route::get('/admin.membershipfees', function(){
+            return view('admin.membershipfees');
+        })->name('admin.membershipfees');
+
 
      });
 
@@ -51,6 +55,10 @@ Route::middleware([
            Route::get('/user.membershipform', function(){
             return view('user.membershipform');
         })->name('user-membershipform');
+
+        Route::get('/user.payplan', function(){
+            return view('user.payplan');
+        })->name('user-payplan');
 
 
 

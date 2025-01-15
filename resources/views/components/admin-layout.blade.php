@@ -121,7 +121,7 @@
 
 
                 <li>
-                    <a href=""
+                    <a href="{{ route('admin.membershipfees') }}"
                         class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                         <i class="ri-bank-card-fill"></i>
                         <span class="ml-3">Payments</span>

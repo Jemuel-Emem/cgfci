@@ -1,58 +1,62 @@
 <?php
 
-namespace App\Livewire\User;
-use App\Models\Beneficiaries;
-use App\Models\Members;
-use App\Models\User;
+namespace App\Livewire\Admin;
+use App\Models\member_fee as MembershipFee;
+use App\Models\beneficiaries as Beneficiary;
+use App\Models\members as Member;
 use Livewire\Component;
 
-class Membershipform extends Component
+class Membership extends Component
 {
-    public $beneficiaryCount = 1; // Default to 1 beneficiary
-    public $beneficiaries = []; // Holds beneficiary data
+    public $members;
+    public $beneficiaries = [];
+    public $showModal = false;
 
     public function mount()
     {
-        $this->initializeBeneficiaries();
+        $this->members = Member::all();
     }
 
-    public function initializeBeneficiaries()
+    public function viewBeneficiaries($memberId)
     {
-        $this->beneficiaries = array_fill(0, $this->beneficiaryCount, ['name' => '', 'birthdate' => '']);
+        $this->beneficiaries = Beneficiary::where('member_id', $memberId)->get();
+        $this->showModal = true; // Show the modal
     }
-
-    public function updateBeneficiaries()
+    public function approveMember($memberId)
     {
-        $this->initializeBeneficiaries(); // Reinitialize with the specified number
-    }
-
-    public function applyNow()
-    {
-        
-        $this->validate([
-            'beneficiaries.*.name' => 'required|string',
-            'beneficiaries.*.birthdate' => 'required|date',
-        ]);
+        $member = Member::find($memberId);
+        if ($member) {
+            $member->status = 'approved';
+            $member->save();
 
 
-        $user = User::create([
-
-        ]);
-
-        foreach ($this->beneficiaries as $beneficiary) {
-            Beneficiaries::create([
-                'user_id' => $user->id,
-                'name' => $beneficiary['name'],
-                'birthdate' => $beneficiary['birthdate'],
+            MembershipFee::create([
+                'member_id' => $member->user_id,
             ]);
+
+            session()->flash('message', 'Member approved and membership fee record created!');
         }
+    }
 
+    public function declineMember($memberId)
+    {
+        $member = Member::find($memberId);
+        if ($member) {
+            $member->status = 'declined';
+            $member->save();
+            session()->flash('message', 'Member declined successfully!');
+        }
+    }
 
-        session()->flash('message', 'Application submitted successfully!');
+    public function closeModal()
+    {
+        $this->showModal = false; // Hide the modal
     }
 
     public function render()
     {
-        return view('livewire.user.membershipform');
+        return view('livewire.admin.membership', [
+            'members' => $this->members,
+        ]);
     }
 }
