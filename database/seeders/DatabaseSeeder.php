@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
              'is_admin' =>1,
              'password' => 'password',
              'number' => '0808',
-             'membership_fee' => 'dsdsd',
+
          ]);
 
          \App\Models\User::factory()->create([
@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             'is_admin' =>0,
             'password' => 'password',
             'number' => '080',
-            'membership_fee' => 'sasasa',
+
         ]);
     }
 }

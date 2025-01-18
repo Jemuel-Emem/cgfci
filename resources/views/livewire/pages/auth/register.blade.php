@@ -30,17 +30,14 @@ public function register()
         'email' => ['required', 'string', 'email', 'unique:users,email'],
         'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         'number' => ['required', 'string', 'max:15'],
-        'membership_fee' => ['nullable', 'image', 'mimes:jpeg,png', 'max:2048'], // Accept image only
+        // Accept image only
     ]);
 
     // Hash the password
     $validated['password'] = Hash::make($validated['password']);
 
     // Handle the image file upload
-    if ($this->membership_fee) {
-        // Store the file and get the file path
-        $validated['membership_fee'] = $this->membership_fee->store('memberships', 'public');
-    }
+
 
     // Create user
     event(new Registered($user = User::create($validated)));
@@ -79,12 +76,7 @@ public function register()
             <x-input-error :messages="$errors->get('number')" class="mt-2" />
         </div>
 
-        <!-- Membership Fee Upload -->
-        <div class="mt-4">
-            <x-input-label for="membership_fee" :value="__('Membership Fee Upload Receipt')" />
-            <input wire:model="membership_fee" type="file" class="block mt-1 w-full" accept="image/jpeg,image/png" />
-            <x-input-error :messages="$errors->get('membership_fee')" class="mt-2" />
-        </div>
+
 
         <!-- Password -->
         <div class="mt-4">

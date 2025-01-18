@@ -41,13 +41,7 @@
     <x-dialog />
     <x-notifications position="top-left" />
 
-    <!-- Check approval_request -->
-    @if (Auth::check() && Auth::user()->approval_request == false)
-        <!-- Show a message if approval_request is false -->
-        <div class="flex items-center justify-center min-h-screen bg-gray-100">
-            <p class="text-xl font-bold text-gray-800">Wait for Admin to Approve Your Request</p>
-        </div>
-    @else
+
         <!-- Navbar -->
         <div class="w-full mx-auto bg-white flex-shrink-0">
             <div x-data="{ open: false }" class="relative flex flex-col w-full p-5 mx-auto bg-blue-500 md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
@@ -105,7 +99,7 @@
                 </div>
             </div>
         </footer>
-    @endif
+
 </body>
 
 </html>

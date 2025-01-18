@@ -50,7 +50,7 @@ class Membership extends Component
 
     public function closeModal()
     {
-        $this->showModal = false; // Hide the modal
+        $this->showModal = false;
     }
 
     public function render()
