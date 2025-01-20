@@ -1,4 +1,5 @@
 <div class=" mx-auto p-6 bg-white shadow-md rounded-lg">
+    <span>Membership Fees</span>
     @if(session()->has('message'))
         <div class="mb-4 text-green-600">
             {{ session('message') }}

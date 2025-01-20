@@ -2,21 +2,24 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\approved_members as ApprovedMember;
 use Livewire\Component;
-use App\Models\User;
 
 class Members extends Component
 {
+    public $approvedMembers;
 
-    public $users;
+    public function mount()
+    {
 
+        $this->approvedMembers = ApprovedMember::with('user:id,name,number')
+            ->get();
+    }
 
     public function render()
     {
-
-        $this->users = User::where('request_approval', 'approved')->get();
-
-
-        return view('livewire.admin.members', ['users' => $this->users]);
+        return view('livewire.admin.members', [
+            'approvedMembers' => $this->approvedMembers,
+        ]);
     }
 }

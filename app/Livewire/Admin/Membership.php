@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 use App\Models\member_fee as MembershipFee;
 use App\Models\beneficiaries as Beneficiary;
+use App\Models\approved_members as AM;
 use App\Models\members as Member;
 use Livewire\Component;
 
@@ -25,16 +26,22 @@ class Membership extends Component
     public function approveMember($memberId)
     {
         $member = Member::find($memberId);
+
         if ($member) {
+
             $member->status = 'approved';
             $member->save();
 
 
             MembershipFee::create([
-                'member_id' => $member->user_id,
+                'user_id' => $member->user_id,
             ]);
 
+
+
+
             session()->flash('message', 'Member approved and membership fee record created!');
+         $this->render();
         }
     }
 

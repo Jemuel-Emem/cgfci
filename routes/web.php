@@ -19,7 +19,7 @@ Route::view('/', 'welcome');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         if (Auth::user()->is_admin) {
-            return redirect()->route('admin-dashboard');
+            return redirect()->route('Admindashboard');
         } else {
             return redirect()->route('user-dashboard');
         }
@@ -71,6 +71,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/user.payplan', function(){
             return view('user.payplan');
         })->name('user-payplan');
+
+        Route::get('/user.monthlypayment', function(){
+            return view('user.monthlypayment');
+        })->name('user-monthlypayment');
 
 
 

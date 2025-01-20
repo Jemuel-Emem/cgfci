@@ -11,12 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('member_fees', function (Blueprint $table) {
+        Schema::create('approved_members', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->decimal('amount', 10, 2)->nullable();
             $table->string('receipt')->nullable();
-            $table->string('status')->default('not-paid');
+
+            $table->string('due_date')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -25,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('member_fees');
+        Schema::dropIfExists('approved_members');
     }
 };
