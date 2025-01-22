@@ -13,6 +13,7 @@ class MonthlyPayment extends Component
     public $isEligible = false;
     public $receipt;
     public $amount;
+    public $approvedTotal = 0;
     public $showForm = false; // Tracks the visibility of the modal
     public $fees; // Stores fee records for the user
 
@@ -30,6 +31,10 @@ class MonthlyPayment extends Component
             $this->isEligible = false;
             $this->fees = collect();
         }
+
+        $this->approvedTotal = ApprovedMember::where('user_id', auth()->id())
+        ->where('status', 'approved')
+        ->sum('amount');
     }
 
     public function showPaymentForm()

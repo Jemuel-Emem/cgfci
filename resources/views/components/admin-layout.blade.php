@@ -87,7 +87,7 @@
                 </a>
 
                 <li>
-                    <a href=""
+                    <a href="{{ route('Admindashboard') }}"
                         class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                         <i class="ri-dashboard-3-fill"></i>
                         <span class="ml-3">Dashboard</span>
@@ -111,13 +111,13 @@
                 </li>
 
 
-                <li>
+                {{-- <li>
                     <a href=""
                         class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                         <i class="ri-building-3-fill"></i>
                         <span class="ml-3">Plan</span>
                     </a>
-                </li>
+                </li> --}}
 
 
                 <li>

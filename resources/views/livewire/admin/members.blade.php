@@ -1,4 +1,4 @@
-<div class="max-w-4xl mx-auto p-6 bg-white  rounded-lg">
+<div class="max-w-7xl mx-auto p-6 bg-white  rounded-lg">
     <h2 class="text-lg font-bold mb-4">Approved Members</h2>
 
     @if($approvedMembers->isEmpty())

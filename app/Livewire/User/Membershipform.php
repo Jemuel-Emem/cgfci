@@ -25,47 +25,97 @@ class Membershipform extends Component
         $this->initializeBeneficiaries();
     }
 
+    // public function applyNow()
+    // {
+
+    //     $this->validate([
+    //         'first_name' => 'required|string',
+    //         'last_name' => 'required|string',
+    //         'address' => 'required|string',
+    //         'birthdate' => 'required|date',
+    //         'religion' => 'required|string',
+    //         'join_date' => 'required|date',
+    //         'parent_leader' => 'required|string',
+
+
+    //         'beneficiaries.*.name' => 'required|string',
+    //         'beneficiaries.*.birthdate' => 'required|date',
+    //     ]);
+    //     $member = Members::create([
+    //         'user_id' => auth()->id(),
+    //         'first_name' => $this->first_name,
+    //         'middle_initial' => $this->middle_initial,
+    //         'last_name' => $this->last_name,
+    //         'address' => $this->address,
+    //         'birthdate' => $this->birthdate,
+    //         'religion' => $this->religion,
+    //         'join_date' => $this->join_date,
+    //         'parent_leader' => $this->parent_leader,
+    //     ]);
+
+    //     foreach ($this->beneficiaries as $beneficiary) {
+    //         Beneficiaries::create([
+    //             'member_id' => $member->id,
+    //             'beneficiary_name' => $beneficiary['name'],
+    //             'birthdate' => $beneficiary['birthdate'],
+    //         ]);
+    //     }
+
+    //     $this->successMessage = 'Application submitted successfully!';
+
+
+    //     $this->reset();
+    // }
+
     public function applyNow()
-    {
+{
 
-        $this->validate([
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'address' => 'required|string',
-            'birthdate' => 'required|date',
-            'religion' => 'required|string',
-            'join_date' => 'required|date',
-            'parent_leader' => 'required|string',
+    $existingMember = Members::where('user_id', auth()->id())->first();
 
-
-            'beneficiaries.*.name' => 'required|string',
-            'beneficiaries.*.birthdate' => 'required|date',
-        ]);
-        $member = Members::create([
-            'user_id' => auth()->id(),
-            'first_name' => $this->first_name,
-            'middle_initial' => $this->middle_initial,
-            'last_name' => $this->last_name,
-            'address' => $this->address,
-            'birthdate' => $this->birthdate,
-            'religion' => $this->religion,
-            'join_date' => $this->join_date,
-            'parent_leader' => $this->parent_leader,
-        ]);
-
-        foreach ($this->beneficiaries as $beneficiary) {
-            Beneficiaries::create([
-                'member_id' => $member->id,
-                'beneficiary_name' => $beneficiary['name'],
-                'birthdate' => $beneficiary['birthdate'],
-            ]);
-        }
-
-        $this->successMessage = 'Application submitted successfully!';
-
-
-        $this->reset();
+    if ($existingMember) {
+        $this->addError('duplicate', 'You have already submitted a membership application.');
+        return;
     }
+
+
+    $this->validate([
+        'first_name' => 'required|string',
+        'last_name' => 'required|string',
+        'address' => 'required|string',
+        'birthdate' => 'required|date',
+        'religion' => 'required|string',
+        'join_date' => 'required|date',
+        'parent_leader' => 'required|string',
+        'beneficiaries.*.name' => 'required|string',
+        'beneficiaries.*.birthdate' => 'required|date',
+    ]);
+
+
+    $member = Members::create([
+        'user_id' => auth()->id(),
+        'first_name' => $this->first_name,
+        'middle_initial' => $this->middle_initial,
+        'last_name' => $this->last_name,
+        'address' => $this->address,
+        'birthdate' => $this->birthdate,
+        'religion' => $this->religion,
+        'join_date' => $this->join_date,
+        'parent_leader' => $this->parent_leader,
+    ]);
+
+
+    foreach ($this->beneficiaries as $beneficiary) {
+        Beneficiaries::create([
+            'member_id' => $member->id,
+            'beneficiary_name' => $beneficiary['name'],
+            'birthdate' => $beneficiary['birthdate'],
+        ]);
+    }
+
+
+    session()->flash('message', 'Application submitted successfully!');
+    $this->reset();
+}
 
     public function initializeBeneficiaries()
     {
@@ -79,6 +129,14 @@ class Membershipform extends Component
 
     public function render()
     {
+        $existingMember = Members::where('user_id', auth()->id())->first();
+
+        if ($existingMember) {
+            return view('livewire.user.membership-status', [
+                'membership' => $existingMember,
+            ]);
+        }
+
         return view('livewire.user.membershipform');
     }
 }

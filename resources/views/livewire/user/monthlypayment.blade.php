@@ -16,7 +16,7 @@
                     <th class="border border-gray-300 px-4 py-2">Amount</th>
                     <th class="border border-gray-300 px-4 py-2">Receipt</th>
                     <th class="border border-gray-300 px-4 py-2">Status</th>
-
+                    <th class="border border-gray-300 px-4 py-2">Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,7 +31,9 @@
                             @endif
                         </td>
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ ucfirst($fee->status) }}</td>
-
+                        <td class="border border-gray-300 px-4 py-2 text-center">
+                            {{ $fee->created_at->format('Y-m-d') }}
+                        </td>
                     </tr>
                 @empty
                     <tr>
@@ -39,6 +41,13 @@
                     </tr>
                 @endforelse
             </tbody>
+
+            <tfoot>
+                <tr class="bg-gray-100">
+                    <td colspan="3" class="text-right font-semibold px-4 py-2">Total Payments:</td>
+                    <td class="text-center font-semibold px-4 py-2">{{ $approvedTotal }}</td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 

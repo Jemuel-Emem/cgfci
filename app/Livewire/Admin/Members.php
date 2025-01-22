@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\approved_members as ApprovedMember;
+use App\Models\members as ApprovedMember;
 use Livewire\Component;
 
 class Members extends Component
