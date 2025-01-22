@@ -1,13 +1,13 @@
-<div class=" mx-auto p-6 bg-white shadow-md rounded-lg">
-    <div class="flex justify-between mb-4 ">
-     <div>
-        <span>Membership Fees</span>
-     </div>
-
-     <div>
-        <a href="{{ route('admin.monthly_payment') }}" class="text-blue-500 underline">Monthly Payment</a>
-     </div>
+<div class="max-w-6xl mx-auto p-6 bg-white shadow-md rounded-lg">
+    <div class="flex justify-between mb-4">
+        <div>
+            <span class="font-semibold text-lg">Monthly Fees</span>
+        </div>
+        <div>
+            <a href="{{ route('admin.membershipfees') }}" class="text-blue-500 underline">Membership Fees</a>
+        </div>
     </div>
+
     @if(session()->has('message'))
         <div class="mb-4 text-green-600">
             {{ session('message') }}
@@ -19,25 +19,25 @@
             <tr class="bg-gray-100">
                 <th class="border border-gray-300 px-4 py-2 text-left">Receipt</th>
                 <th class="border border-gray-300 px-4 py-2 text-left">Status</th>
+                <th class="border border-gray-300 px-4 py-2 text-left">Amount</th>
+                <th class="border border-gray-300 px-4 py-2 text-left">Duedate</th>
                 <th class="border border-gray-300 px-4 py-2 text-left">Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($fees as $fee)
+            @forelse($fees as $fee)
                 <tr>
                     <td class="border border-gray-300 px-4 py-2">
                         @if($fee->receipt)
-
                             <img src="{{ asset('storage/' . $fee->receipt) }}" alt="Receipt" class="w-16 h-16 object-cover">
                         @else
-
-                            No payment
+                            <span class="text-gray-500">No payment</span>
                         @endif
                     </td>
 
-                    <td class="border border-gray-300 px-4 py-2">
-                        {{ ucfirst($fee->status) }}
-                    </td>
+                    <td class="border border-gray-300 px-4 py-2">{{ ucfirst($fee->status) }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ $fee->amount ?? 'N/A' }}</td>
+                    <td class="border border-gray-300 px-4 py-2">Every {{ \Carbon\Carbon::parse($fee->due_date)->format('d') }}th of the month</td>
                     <td class="border border-gray-300 px-4 py-2">
                         @if($fee->status != 'approved' && $fee->status != 'cancelled')
                             <button
@@ -59,7 +59,13 @@
                         @endif
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="3" class="border border-gray-300 px-4 py-2 text-center">
+                        No records found.
+                    </td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 </div>

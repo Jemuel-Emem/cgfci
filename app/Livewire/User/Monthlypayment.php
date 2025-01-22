@@ -20,8 +20,27 @@ class MonthlyPayment extends Component
     public function mount()
     {
 
-        $this->fees = ApprovedMember::where('user_id', auth()->user()->id)->get();
+        $this->fees = ApprovedMember::where('user_id', auth()->user()->id)
+            ->whereMonth('created_at', now()->month)
+            ->get();
+
+
+        if ($this->fees->isEmpty()) {
+            ApprovedMember::create([
+                'user_id' => auth()->user()->id,
+                'amount' => 100,
+                'status' => 'pending',
+            ]);
+
+
+            $this->fees = ApprovedMember::where('user_id', auth()->user()->id)
+                ->whereMonth('created_at', now()->month)
+                ->get();
+        }
     }
+
+
+
 
     public function openModal($feeId)
     {

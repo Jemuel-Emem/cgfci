@@ -24,7 +24,8 @@
                                 No payment
                             @endif
                         </td>
-                        <td class="border border-gray-300 px-4 py-2">{{ ucfirst($fee->duedate) }}</td>
+                        <td class="border border-gray-300 px-4 py-2">Every {{ \Carbon\Carbon::parse($fee->due_date)->format('d') }}th of the month</td>
+
                         <td class="border border-gray-300 px-4 py-2">{{ ucfirst($fee->status) }}</td>
                         <td class="border border-gray-300 px-4 py-2">
                             @if($fee->status === 'pending')

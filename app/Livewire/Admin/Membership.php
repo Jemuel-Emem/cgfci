@@ -28,7 +28,6 @@ class Membership extends Component
         $member = Member::find($memberId);
 
         if ($member) {
-
             $member->status = 'approved';
             $member->save();
 
@@ -37,11 +36,7 @@ class Membership extends Component
                 'user_id' => $member->user_id,
             ]);
 
-
-
-
             session()->flash('message', 'Member approved and membership fee record created!');
-         $this->render();
         }
     }
 

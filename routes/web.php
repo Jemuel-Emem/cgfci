@@ -56,6 +56,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
             return view('admin.membershipfees');
         })->name('admin.membershipfees');
 
+        Route::get('/admin.monthly_payment', function(){
+            return view('admin.monthly_payment');
+        })->name('admin.monthly_payment');
+
 
      });
 
