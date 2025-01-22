@@ -11,13 +11,12 @@ class MonthlyPayment extends Component
 
     public function mount()
     {
-
+        // Fetch all approved members' payments
         $this->fees = ApprovedMember::all();
     }
 
     public function approveFee($feeId)
     {
-        dd("sasa");
         $fee = ApprovedMember::find($feeId);
 
         if ($fee) {
@@ -25,7 +24,7 @@ class MonthlyPayment extends Component
             $fee->save();
 
             session()->flash('message', 'Fee approved successfully.');
-            $this->mount();
+            $this->mount(); // Refresh the data
         }
     }
 
@@ -38,7 +37,7 @@ class MonthlyPayment extends Component
             $fee->save();
 
             session()->flash('message', 'Fee cancelled successfully.');
-            $this->mount();
+            $this->mount(); // Refresh the data
         }
     }
 

@@ -1,56 +1,45 @@
 <?php
 
-
 namespace App\Livewire\User;
-
+use App\Models\members;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+
 use App\Models\approved_members as ApprovedMember;
 
 class MonthlyPayment extends Component
 {
     use WithFileUploads;
-
+    public $isEligible = false;
     public $receipt;
     public $amount;
-    public $fees;
-    public $showModal = false;
-    public $currentFeeId;
+    public $showForm = false; // Tracks the visibility of the modal
+    public $fees; // Stores fee records for the user
 
     public function mount()
     {
+        // Check if the user has an approved membership
+        $approvedMembership = members::where('user_id', auth()->id())
+            ->where('status', 'approved')
+            ->first();
 
-        $this->fees = ApprovedMember::where('user_id', auth()->user()->id)
-            ->whereMonth('created_at', now()->month)
-            ->get();
-
-
-        if ($this->fees->isEmpty()) {
-            ApprovedMember::create([
-                'user_id' => auth()->user()->id,
-                'amount' => 100,
-                'status' => 'pending',
-            ]);
-
-
-            $this->fees = ApprovedMember::where('user_id', auth()->user()->id)
-                ->whereMonth('created_at', now()->month)
-                ->get();
+        if ($approvedMembership) {
+            $this->isEligible = true;
+            $this->fees = ApprovedMember::where('user_id', auth()->id())->get();
+        } else {
+            $this->isEligible = false;
+            $this->fees = collect();
         }
     }
 
-
-
-
-    public function openModal($feeId)
+    public function showPaymentForm()
     {
-        $this->currentFeeId = $feeId;
-        $this->showModal = true;
+        $this->showForm = true; // Show the modal
     }
 
-    public function closeModal()
+    public function hidePaymentForm()
     {
-        $this->showModal = false;
+        $this->showForm = false; // Hide the modal
     }
 
     public function submitReceipt()
@@ -60,23 +49,35 @@ class MonthlyPayment extends Component
             'receipt' => 'required|mimes:jpg,jpeg,png,pdf|max:10240',
         ]);
 
+
         $receiptPath = $this->receipt->store('receipts', 'public');
 
-        $fee = ApprovedMember::find($this->currentFeeId);
-        if ($fee) {
-            $fee->receipt = $receiptPath;
-            $fee->amount = $this->amount;
-            $fee->status = 'on-process';
-            $fee->save();
-        }
 
-        session()->flash('message', 'Receipt and amount submitted successfully!');
+        ApprovedMember::updateOrCreate(
+            ['user_id' => auth()->id(), 'status' => 'pending'],
+            [
+                'amount' => $this->amount,
+                'receipt' => $receiptPath,
+                'status' => 'on-process',
+            ]
+        );
 
-        $this->closeModal();
+        session()->flash('message', 'Payment submitted successfully!');
+        $this->resetForm();
+    }
+
+    private function resetForm()
+    {
+        $this->amount = null;
+        $this->receipt = null;
+        $this->showForm = false;
     }
 
     public function render()
     {
-        return view('livewire.user.monthlypayment');
+        return view('livewire.user.monthlypayment', [
+            'fees' => $this->fees,
+            'isEligible' => $this->isEligible,
+        ]);
     }
 }

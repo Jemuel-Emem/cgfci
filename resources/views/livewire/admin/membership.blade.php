@@ -21,30 +21,31 @@
                     <td class="py-2 px-4">{{ $member->address }}</td>
                     <td class="py-2 px-4">{{ $member->religion }}</td>
                     <td class="py-2 px-4">{{ $member->status }}</td>
-                    <td class="py-2 px-4 space-y-2">
-                        <button
-                            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                            wire:click="viewBeneficiaries({{ $member->id }})">
-                            View Beneficiaries
-                        </button>
-                        <button
-                        class="px-4 py-2 rounded text-white
-                               {{ in_array($member->status, ['approved', 'declined']) ? 'bg-gray-500 cursor-not-allowed' : 'bg-green-500 hover:bg-green-600' }}"
-                        wire:click="approveMember({{ $member->id }})"
-                        {{ in_array($member->status, ['approved', 'declined']) ? 'disabled' : '' }}>
-                        Approve
-                    </button>
-
-                    <button
-                        class="px-4 py-2 rounded text-white
-                               {{ in_array($member->status, ['approved', 'declined']) ? 'bg-gray-500 cursor-not-allowed' : 'bg-red-500 hover:bg-red-600' }}"
-                        wire:click="declineMember({{ $member->id }})"
-                        {{ in_array($member->status, ['approved', 'declined']) ? 'disabled' : '' }}>
-                        Decline
-                    </button>
-
-
+                    <td class="py-2 px-4">
+                        @if($member->status != 'approved' && $member->status != 'declined')
+                            <button
+                                class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                                wire:click="approveMember({{ $member->id }})"
+                                wire:loading.attr="disabled"
+                                wire:target="approveMember({{ $member->id }})">
+                                Approve
+                            </button>
+                            <button
+                                class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 ml-2"
+                                wire:click="declineMember({{ $member->id }})"
+                                wire:loading.attr="disabled"
+                                wire:target="declineMember({{ $member->id }})">
+                                Decline
+                            </button>
+                        @else
+                            <button
+                                class="bg-gray-500 text-white px-4 py-2 rounded cursor-not-allowed"
+                                disabled>
+                                Action Disabled
+                            </button>
+                        @endif
                     </td>
+
                 </tr>
             @endforeach
         </tbody>

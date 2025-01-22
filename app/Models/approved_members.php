@@ -12,7 +12,6 @@ class approved_members extends Model
         'user_id',
         'amount',
         'receipt',
-        'due_date',
         'status',
     ];
 

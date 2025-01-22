@@ -4,7 +4,7 @@
             <span class="font-semibold text-lg">Monthly Fees</span>
         </div>
         <div>
-            <a href="{{ route('admin.membershipfees') }}" class="text-blue-500 underline">Membership Fees</a>
+            <a href="{{ route('admin.monthly_payment') }}" class="text-blue-500 underline">Membership Fees</a>
         </div>
     </div>
 
@@ -19,8 +19,6 @@
             <tr class="bg-gray-100">
                 <th class="border border-gray-300 px-4 py-2 text-left">Receipt</th>
                 <th class="border border-gray-300 px-4 py-2 text-left">Status</th>
-                <th class="border border-gray-300 px-4 py-2 text-left">Amount</th>
-                <th class="border border-gray-300 px-4 py-2 text-left">Duedate</th>
                 <th class="border border-gray-300 px-4 py-2 text-left">Actions</th>
             </tr>
         </thead>
@@ -36,8 +34,7 @@
                     </td>
 
                     <td class="border border-gray-300 px-4 py-2">{{ ucfirst($fee->status) }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $fee->amount ?? 'N/A' }}</td>
-                    <td class="border border-gray-300 px-4 py-2">Every {{ \Carbon\Carbon::parse($fee->due_date)->format('d') }}th of the month</td>
+
                     <td class="border border-gray-300 px-4 py-2">
                         @if($fee->status != 'approved' && $fee->status != 'cancelled')
                             <button

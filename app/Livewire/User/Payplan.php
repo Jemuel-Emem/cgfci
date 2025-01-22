@@ -18,14 +18,14 @@ class Payplan extends Component
 
     public function mount()
     {
-        // Get the current user fees
+
         $this->fees = MemberFee::where('user_id', auth()->user()->id)->get();
     }
 
     public function openModal($feeId)
     {
         $this->currentFeeId = $feeId;
-        // Fetch beneficiaries for this member
+
         $this->beneficiaries = Beneficiary::where('member_id', $feeId)->get();
         $this->showModal = true;
     }
@@ -36,7 +36,7 @@ class Payplan extends Component
     }
     public function submitReceipt()
     {
-
+dd("sasa");
         $this->validate([
             'receipt' => 'required|mimes:jpg,jpeg,png,pdf|max:10240',
         ]);

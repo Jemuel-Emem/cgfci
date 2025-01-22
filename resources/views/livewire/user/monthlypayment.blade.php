@@ -1,50 +1,53 @@
-<div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg">
-    @if($fees->isEmpty())
-        <p class="text-center text-gray-500">No approved membership fees found for your account.</p>
-    @else
+<div class="max-7-4xl mx-auto p-6 bg-white shadow-md rounded-lg">
+    @if ($isEligible)
+    <div class="flex justify-end">
+        <button
+            class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+            wire:click="showPaymentForm">
+            Pay Now
+        </button>
+    </div>
+
+    <div class="overflow-x-auto">
+        <h3 class="font-semibold text-lg mb-4">Your Payment Records</h3>
         <table class="w-full border-collapse border border-gray-300">
             <thead>
                 <tr class="bg-gray-100">
-                    <th class="border border-gray-300 px-4 py-2 text-left">Amount</th>
-                    <th class="border border-gray-300 px-4 py-2 text-left">Receipt</th>
-                    <th class="border border-gray-300 px-4 py-2 text-left">Duedate</th>
-                    <th class="border border-gray-300 px-4 py-2 text-left">Status</th>
-                    <th class="border border-gray-300 px-4 py-2 text-left">Action</th>
+                    <th class="border border-gray-300 px-4 py-2">Amount</th>
+                    <th class="border border-gray-300 px-4 py-2">Receipt</th>
+                    <th class="border border-gray-300 px-4 py-2">Status</th>
+
                 </tr>
             </thead>
             <tbody>
-                @foreach($fees as $fee)
+                @forelse($fees as $fee)
                     <tr>
-
-                        <td class="border border-gray-300 px-4 py-2">{{ $fee->amount ?? 'N/A' }}</td>
-                        <td class="border border-gray-300 px-4 py-2">
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $fee->amount ?? 'N/A' }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">
                             @if($fee->receipt)
-                                <img src="{{ asset('storage/' . $fee->receipt) }}" alt="Receipt" class="w-16 h-16 object-cover">
+                                <a href="{{ asset('storage/' . $fee->receipt) }}" target="_blank" class="text-blue-500 underline">View</a>
                             @else
-                                No payment
+                                <span class="text-gray-500">No receipt</span>
                             @endif
                         </td>
-                        <td class="border border-gray-300 px-4 py-2">Every {{ \Carbon\Carbon::parse($fee->due_date)->format('d') }}th of the month</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ ucfirst($fee->status) }}</td>
 
-                        <td class="border border-gray-300 px-4 py-2">{{ ucfirst($fee->status) }}</td>
-                        <td class="border border-gray-300 px-4 py-2">
-                            @if($fee->status === 'pending')
-                                <button
-                                    class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
-                                    wire:click="openModal({{ $fee->id }})">
-                                    Pay Now
-                                </button>
-                            @endif
-                        </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="4" class="text-center text-gray-500">No fee records found.</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
-    @endif
+    </div>
 
-    @if ($showModal)
+
+    @if ($showForm)
         <div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div class="bg-white w-1/2 rounded-lg shadow-lg p-4">
+            <div class="bg-white w-5/12 rounded-lg shadow-lg p-6">
+                <h2 class="text-lg font-semibold mb-4">Submit Payment</h2>
+
 
                 <div class="mt-4">
                     <label for="amount" class="block text-sm font-semibold">Amount</label>
@@ -56,26 +59,44 @@
                         placeholder="Enter the amount">
                     @error('amount') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
+
+
                 <div class="mt-4">
                     <label for="receipt" class="block text-sm font-semibold">Upload Receipt</label>
-                    <input type="file" id="receipt" wire:model="receipt" class="border px-4 py-2 rounded w-full mt-2">
+                    <input
+                        type="file"
+                        id="receipt"
+                        wire:model="receipt"
+                        class="border px-4 py-2 rounded w-full mt-2">
                     @error('receipt') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
+                <!-- Actions -->
                 <div class="flex justify-end mt-4">
                     <button
-                        class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+                        class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
                         wire:click="submitReceipt">
                         Submit
                     </button>
 
                     <button
                         class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 ml-2"
-                        wire:click="closeModal">
+                        wire:click="hidePaymentForm">
                         Close
                     </button>
                 </div>
             </div>
         </div>
     @endif
+
+    <!-- Flash Message -->
+    @if (session()->has('message'))
+        <div class="mt-4 text-green-600">
+            {{ session('message') }}
+        </div>
+    @endif
+
+    @else
+    <p class="text-center text-red-500">You are not eligible for Monthly Payment. Please check your membership status.</p>
+@endif
 </div>

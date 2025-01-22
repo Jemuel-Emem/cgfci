@@ -21,7 +21,7 @@ class Membership extends Component
     public function viewBeneficiaries($memberId)
     {
         $this->beneficiaries = Beneficiary::where('member_id', $memberId)->get();
-        $this->showModal = true; // Show the modal
+        $this->showModal = true;
     }
     public function approveMember($memberId)
     {

@@ -17,12 +17,12 @@ class Membershipfees extends Component
             session()->flash('message', 'Membership fee approved!');
         }
 
-        AM::create([
-            'user_id' => $fee->user_id,
-            'amount' => null,
-            'receipt' => null,
-            'due_date' => now()->toDateString(),
-        ]);
+        // AM::create([
+        //     'user_id' => $fee->user_id,
+        //     'amount' => null,
+        //     'receipt' => null,
+        //     'due_date' => now()->toDateString(),
+        // ]);
     }
 
 
