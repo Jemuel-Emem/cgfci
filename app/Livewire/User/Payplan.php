@@ -36,7 +36,7 @@ class Payplan extends Component
     }
     public function submitReceipt()
     {
-dd("sasa");
+
         $this->validate([
             'receipt' => 'required|mimes:jpg,jpeg,png,pdf|max:10240',
         ]);
