@@ -11,7 +11,7 @@ class MonthlyPayment extends Component
 
     public function mount()
     {
-        // Fetch all approved members' payments
+       
         $this->fees = ApprovedMember::all();
     }
 

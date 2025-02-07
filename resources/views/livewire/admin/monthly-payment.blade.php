@@ -3,9 +3,7 @@
         <div>
             <span class="font-semibold text-lg">Monthly Fees</span>
         </div>
-        <div>
-            <a href="{{ route('admin.membershipfees') }}" class="text-blue-500 underline">Membership Fees</a>
-        </div>
+
     </div>
 
     @if(session()->has('message'))

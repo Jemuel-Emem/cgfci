@@ -9,8 +9,9 @@
                 <th class="py-2 px-4">Name</th>
                 <th class="py-2 px-4">Address</th>
                 <th class="py-2 px-4">Religion</th>
-                <th class="py-2 px-4">Status</th>
-                <th class="py-2 px-4">Actions</th>
+                <th class="py-2 px-4">Membership Fee</th>
+
+
             </tr>
         </thead>
         <tbody>
@@ -20,31 +21,12 @@
                     <td class="py-2 px-4">{{ $member->first_name }} {{ $member->middle_initial }} {{ $member->last_name }}</td>
                     <td class="py-2 px-4">{{ $member->address }}</td>
                     <td class="py-2 px-4">{{ $member->religion }}</td>
-                    <td class="py-2 px-4">{{ $member->status }}</td>
-                    <td class="py-2 px-4">
-                        @if($member->status != 'approved' && $member->status != 'declined')
-                            <button
-                                class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-                                wire:click="approveMember({{ $member->id }})"
-                                wire:loading.attr="disabled"
-                                wire:target="approveMember({{ $member->id }})">
-                                Approve
-                            </button>
-                            <button
-                                class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 ml-2"
-                                wire:click="declineMember({{ $member->id }})"
-                                wire:loading.attr="disabled"
-                                wire:target="declineMember({{ $member->id }})">
-                                Decline
-                            </button>
-                        @else
-                            <button
-                                class="bg-gray-500 text-white px-4 py-2 rounded cursor-not-allowed"
-                                disabled>
-                                Action Disabled
-                            </button>
-                        @endif
-                    </td>
+                    <td  class="py-2 px-4">@if ($member->membership_fee)
+                        <img src="{{ asset('storage/' . $member->membership_fee) }}" class="w-32 h-32 object-cover">
+                    @endif</td>
+
+
+
 
                 </tr>
             @endforeach

@@ -1,5 +1,9 @@
 <div class="max-7-4xl mx-auto p-6 bg-white shadow-md rounded-lg">
-    @if ($isEligible)
+    @if (session()->has('message'))
+    <div class="mt-4 text-green-600">
+        {{ session('message') }}
+    </div>
+@endif
     <div class="flex justify-end">
         <button
             class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
@@ -51,12 +55,10 @@
         </table>
     </div>
 
-
     @if ($showForm)
         <div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div class="bg-white w-5/12 rounded-lg shadow-lg p-6">
                 <h2 class="text-lg font-semibold mb-4">Submit Payment</h2>
-
 
                 <div class="mt-4">
                     <label for="amount" class="block text-sm font-semibold">Amount</label>
@@ -69,7 +71,6 @@
                     @error('amount') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
-
                 <div class="mt-4">
                     <label for="receipt" class="block text-sm font-semibold">Upload Receipt</label>
                     <input
@@ -80,7 +81,7 @@
                     @error('receipt') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
-                <!-- Actions -->
+
                 <div class="flex justify-end mt-4">
                     <button
                         class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
@@ -98,14 +99,5 @@
         </div>
     @endif
 
-    <!-- Flash Message -->
-    @if (session()->has('message'))
-        <div class="mt-4 text-green-600">
-            {{ session('message') }}
-        </div>
-    @endif
 
-    @else
-    <p class="text-center text-red-500">You are not eligible for Monthly Payment. Please check your membership status.</p>
-@endif
 </div>

@@ -103,10 +103,10 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('admin.members') }}"
+                    <a href="{{ route('admin.add_account') }}"
                         class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                         <i class="ri-group-2-fill"></i>
-                        <span class="ml-3">Members</span>
+                        <span class="ml-3">Create Account</span>
                     </a>
                 </li>
 
@@ -121,7 +121,7 @@
 
 
                 <li>
-                    <a href="{{ route('admin.membershipfees') }}"
+                    <a href="{{ route('admin.monthly_payment') }}"
                         class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                         <i class="ri-bank-card-fill"></i>
                         <span class="ml-3">Payments</span>

@@ -16,28 +16,28 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        if (Auth::user()->is_admin) {
-            return redirect()->route('Admindashboard');
-        } else {
-            return redirect()->route('user-dashboard');
-        }
-    })->name('userdashboard');
-});
-
-// Route::middleware([
-
-//     ])->group(function () {
-//          Route::get('/dashboard', function () {
-//            if (auth()->user()->is_admin == 1) {
+// Route::middleware(['auth', 'verified'])->group(function () {
+//     Route::get('/dashboard', function () {
+//         if (Auth::user()->is_admin) {
 //             return redirect()->route('Admindashboard');
-//            }else{
+//         } else {
 //             return redirect()->route('user-dashboard');
-//            }
-//          })->name('userdashboard');
+//         }
+//     })->name('userdashboard');
+// });
 
-//     });
+Route::middleware([
+
+    ])->group(function () {
+         Route::get('/dashboard', function () {
+           if (auth()->user()->is_admin == 1) {
+            return redirect()->route('Admindashboard');
+           }else{
+            return redirect()->route('user-dashboard');
+           }
+         })->name('userdashboard');
+
+    });
 
     Route::prefix('admin')->middleware('admin')->group(function(){
         Route::get('/Admindashboard', function(){
@@ -60,6 +60,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
             return view('admin.monthly_payment');
         })->name('admin.monthly_payment');
 
+        Route::get('/admin.add-account', function(){
+            return view('admin.add-account');
+        })->name('admin.add_account');
+
 
      });
 
@@ -68,9 +72,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                return view('user.index');
            })->name('user-dashboard');
 
-           Route::get('/user.membershipform', function(){
-            return view('user.membershipform');
-        })->name('user-membershipform');
+
 
         Route::get('/user.payplan', function(){
             return view('user.payplan');
@@ -84,7 +86,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
     });
-
+     Route::get('membershipform', function(){
+         return view('user.membershipform');
+     })->name('user-membershipform');
 
 // Route::view('dashboard', 'dashboard')
 //     ->middleware(['auth', 'verified'])

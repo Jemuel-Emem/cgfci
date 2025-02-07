@@ -44,7 +44,7 @@
 
         <!-- Navbar -->
         <div class="w-full mx-auto bg-white flex-shrink-0">
-            <div x-data="{ open: false }" class="relative flex flex-col w-full p-5 mx-auto bg-blue-500 md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
+            <div class="relative flex flex-col w-full p-5 mx-auto bg-blue-500 md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
                 <div class="flex flex-row items-center justify-between lg:justify-start">
                     <a class="tracking-tight text-black uppercase focus:outline-none focus:ring lg:text-2xl flex items-center gap-4" href="/">
                         <img src="{{ asset('images/Screenshot 2025-01-09 185647.png') }}" alt="Violation Photo" class="w-16 h-16 border rounded-full">
@@ -61,22 +61,8 @@
                     </button>
                 </div>
                 <nav :class="{'flex': open, 'hidden': !open}" class="flex-col items-center flex-grow hidden md:pb-0 md:flex md:justify-end md:flex-row">
-                    <a href="{{ route('user-dashboard') }}" class="px-2 py-2 text-sm text-white lg:px-6 md:px-3 hover:text-cyan-600 lg:ml-auto">Dashboard</a>
-                    {{-- <a href="" class="px-2 py-2 text-sm text-white lg:px-6 md:px-3 hover:text-cyan-600">Apply Plan</a> --}}
-                    {{-- <a href="{{ route('user-payplan') }}" class="px-2 py-2 text-sm text-white lg:px-6 md:px-3 hover:text-cyan-600">Membership Fee</a> --}}
-                    <a href="{{ route('user-monthlypayment') }}" class="px-2 py-2 text-sm text-white lg:px-6 md:px-3 hover:text-cyan-600">Monthly Payment</a>
 
-
-                    <div class="inline-flex items-center gap-2 list-none lg:ml-auto">
-                        <div class="relative flex-shrink-0 ml-5" @click.away="open = false" x-data="{ open: false }">
-                            <div>
-                                <span class="text-white font-bold"> {{ Auth::user()->name }}</span>
-                                <x-dropdown>
-                                    <x-dropdown.item label="Logout" class="" href="{{ route('logout') }}" />
-                                </x-dropdown>
-                            </div>
-                        </div>
-                    </div>
+                    <a href="{{ route('login') }}" class="px-2 py-2 text-sm text-white lg:px-6 md:px-3 hover:text-cyan-600">Login</a>
                 </nav>
             </div>
         </div>

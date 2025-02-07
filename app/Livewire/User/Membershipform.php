@@ -1,13 +1,16 @@
 <?php
 
 namespace App\Livewire\User;
-
+use Livewire\WithFileUploads;
 use App\Models\Beneficiaries;
 use App\Models\Members;
 use Livewire\Component;
 
 class Membershipform extends Component
 {
+    use WithFileUploads;
+
+    public $membership_fee;
     public $first_name;
     public $middle_initial;
     public $last_name;
@@ -70,12 +73,12 @@ class Membershipform extends Component
     public function applyNow()
 {
 
-    $existingMember = Members::where('user_id', auth()->id())->first();
+    // $existingMember = Members::where('user_id', auth()->id())->first();
 
-    if ($existingMember) {
-        $this->addError('duplicate', 'You have already submitted a membership application.');
-        return;
-    }
+    // if ($existingMember) {
+    //     $this->addError('duplicate', 'You have already submitted a membership application.');
+    //     return;
+    // }
 
 
     $this->validate([
@@ -88,8 +91,9 @@ class Membershipform extends Component
         'parent_leader' => 'required|string',
         'beneficiaries.*.name' => 'required|string',
         'beneficiaries.*.birthdate' => 'required|date',
+        'membership_fee' => 'required|image|max:2048',
     ]);
-
+    $photoPath = $this->membership_fee->store('membership_fees', 'public');
 
     $member = Members::create([
         'user_id' => auth()->id(),
@@ -101,6 +105,7 @@ class Membershipform extends Component
         'religion' => $this->religion,
         'join_date' => $this->join_date,
         'parent_leader' => $this->parent_leader,
+        'membership_fee' => $photoPath,
     ]);
 
 
@@ -129,13 +134,13 @@ class Membershipform extends Component
 
     public function render()
     {
-        $existingMember = Members::where('user_id', auth()->id())->first();
+        // $existingMember = Members::where('user_id', auth()->id())->first();
 
-        if ($existingMember) {
-            return view('livewire.user.membership-status', [
-                'membership' => $existingMember,
-            ]);
-        }
+        // if ($existingMember) {
+        //     return view('livewire.user.membership-status', [
+        //         'membership' => $existingMember,
+        //     ]);
+        // }
 
         return view('livewire.user.membershipform');
     }

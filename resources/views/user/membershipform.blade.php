@@ -1,4 +1,4 @@
-<x-user-layout>
+<x-wel-layout>
     <div>
 
         <div class="  h-cover">
@@ -6,4 +6,4 @@
         </div>
 
     </div>
-</x-user-layout>
+</x-wel-layout>

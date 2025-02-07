@@ -1,16 +1,16 @@
 <?php
 
 namespace App\Livewire\User;
+
 use App\Models\members;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-
 use App\Models\approved_members as ApprovedMember;
 
 class MonthlyPayment extends Component
 {
     use WithFileUploads;
-    public $isEligible = false;
+
     public $receipt;
     public $amount;
     public $approvedTotal = 0;
@@ -19,22 +19,16 @@ class MonthlyPayment extends Component
 
     public function mount()
     {
-        // Check if the user has an approved membership
-        $approvedMembership = members::where('user_id', auth()->id())
+        // Get the user_id from the authenticated user's record
+        $userId = auth()->user()->user_id;
+
+        // Get total approved payments for the user
+        $this->approvedTotal = ApprovedMember::where('user_id', $userId)
             ->where('status', 'approved')
-            ->first();
+            ->sum('amount');
 
-        if ($approvedMembership) {
-            $this->isEligible = true;
-            $this->fees = ApprovedMember::where('user_id', auth()->id())->get();
-        } else {
-            $this->isEligible = false;
-            $this->fees = collect();
-        }
-
-        $this->approvedTotal = ApprovedMember::where('user_id', auth()->id())
-        ->where('status', 'approved')
-        ->sum('amount');
+        // Fetch fee records for the user
+        $this->fees = ApprovedMember::where('user_id', $userId)->get();
     }
 
     public function showPaymentForm()
@@ -59,7 +53,7 @@ class MonthlyPayment extends Component
 
 
         ApprovedMember::updateOrCreate(
-            ['user_id' => auth()->id(), 'status' => 'pending'],
+            ['user_id' => auth()->user()->user_id, 'status' => 'pending'],
             [
                 'amount' => $this->amount,
                 'receipt' => $receiptPath,
@@ -69,6 +63,7 @@ class MonthlyPayment extends Component
 
         session()->flash('message', 'Payment submitted successfully!');
         $this->resetForm();
+        $this->render();
     }
 
     private function resetForm()
@@ -80,9 +75,14 @@ class MonthlyPayment extends Component
 
     public function render()
     {
+        $userId = auth()->user()->user_id;
+
+
+        $approvedMembers = ApprovedMember::where('user_id', $userId)->get();
+
         return view('livewire.user.monthlypayment', [
             'fees' => $this->fees,
-            'isEligible' => $this->isEligible,
+            'approvedMembers' => $approvedMembers,
         ]);
     }
 }

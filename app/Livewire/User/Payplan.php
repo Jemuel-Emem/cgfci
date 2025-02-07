@@ -13,8 +13,8 @@ class Payplan extends Component
     public $receipt;
     public $fees;
     public $beneficiaries;
-    public $showModal = false; // Controls modal visibility
-    public $currentFeeId; // Holds the current fee ID to fetch beneficiaries
+    public $showModal = false;
+    public $currentFeeId;
 
     public function mount()
     {
