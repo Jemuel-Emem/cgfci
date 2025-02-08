@@ -9,7 +9,7 @@ use Illuminate\Validation\Rules\Password;
 
 class AddAccount extends Component
 {
-    public $name, $number, $email, $password, $account_number, $account_id;
+    public $name, $number, $email, $password, $account_number, $account_id, $member_id;
 
     public function createAccount()
     {
@@ -26,6 +26,7 @@ class AddAccount extends Component
         ]);
 
         User::create([
+            'member_id'=> $this->member_id,
             'user_id' => $this->account_number,
             'name' => $this->name,
             'number' => $this->number,
@@ -41,6 +42,7 @@ class AddAccount extends Component
     public function editAccount($id)
     {
         $account = User::findOrFail($id);
+        $this->member_id = $account->member_id;
         $this->account_id = $account->id;
         $this->account_number = $account->user_id;
         $this->name = $account->name;
@@ -58,6 +60,7 @@ class AddAccount extends Component
 
         $account = User::findOrFail($this->account_id);
         $account->update([
+            'member_id' => $this->member_id,
             'user_id' => $this->account_number,
             'name' => $this->name,
             'number' => $this->number,

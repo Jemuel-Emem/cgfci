@@ -7,6 +7,11 @@
 
     <div class="grid grid-cols-2 gap-4 mb-4">
         <div>
+            <label class="block font-semibold mb-1">Member ID:</label>
+            <input type="text" wire:model="member_id" class="border px-4 py-2 rounded w-full" placeholder="Member Id">
+            @error('member_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
+        <div>
             <label class="block font-semibold mb-1">Account Number:</label>
             <input type="text" wire:model="account_number" class="border px-4 py-2 rounded w-full" placeholder="Account number">
             @error('account_number') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -55,6 +60,7 @@
     <table class="w-full mt-4 border-collapse border border-gray-300">
         <thead>
             <tr class="bg-gray-200">
+                <th class="border p-2">Member ID</th>
                 <th class="border p-2">Account Number</th>
                 <th class="border p-2">Name</th>
                 <th class="border p-2">Email</th>
@@ -65,6 +71,7 @@
         <tbody>
             @foreach($accounts as $account)
                 <tr>
+                    <td class="border p-2 text-center">{{ $account->member_id }}</td>
                     <td class="border p-2 text-center">{{ $account->user_id }}</td>
                     <td class="border p-2 text-center">{{ $account->name }}</td>
                     <td class="border p-2 text-center">{{ $account->email }}</td>

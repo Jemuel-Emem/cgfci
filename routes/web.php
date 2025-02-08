@@ -82,6 +82,10 @@ Route::middleware([
             return view('user.monthlypayment');
         })->name('user-monthlypayment');
 
+        Route::get('/user.myaccount', function(){
+            return view('user.myaccount');
+        })->name('myaccount');
+
 
 
 

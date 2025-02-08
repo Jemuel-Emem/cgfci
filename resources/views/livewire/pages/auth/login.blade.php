@@ -64,9 +64,7 @@ new #[Layout('layouts.guest')] class extends Component
                 </a>
             @endif --}}
 
-            <span>
-                <a href="{{ route('register') }}">Don't have an account?</a>
-            </span>
+
 
             <x-primary-button class="ms-3">
                 {{ __('Log in') }}
