@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel</title>
+    <title>GPFCI</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -194,7 +194,7 @@ window.addEventListener('scroll', function() {
 </head>
 <body class="antialiased">
 
-<div x-data="{ open: false, policyOpen: false, benefitsOpen:false }">
+<div x-data="{ open: false, policyOpen: false, benefitsOpen:false, aboutOpen:false }">
     <div class="w-full mx-auto bg-white flex-shrink-0">
         <div class="relative flex flex-col w-full p-5 mx-auto bg-blue-500 md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
             <div class="flex flex-row items-center justify-between lg:justify-start">
@@ -241,6 +241,9 @@ window.addEventListener('scroll', function() {
                 <button @click="benefitsOpen = !benefitsOpen" class="w-32 inline-block mt-6 px-6 py-3 bg-green-500 text-center hover:bg-green-600 text-white font-medium rounded-lg shadow-md flip-effect">
                     Benefits
                 </button>
+                <button @click="aboutOpen = !aboutOpen" class="w-32 inline-block mt-6 px-6 py-3 bg-purple-500 text-center hover:bg-purple-600 text-white font-medium rounded-lg shadow-md flip-effect">
+                    About Us
+                </button>
             </div>
 
             <div class="">
@@ -248,6 +251,60 @@ window.addEventListener('scroll', function() {
                     <img src="{{ asset('images/fam.jpg') }}" alt="Family Care" class="rounded-lg shadow-lg image-animation">
             </div>
         </div>
+    </div>
+
+    <div x-show="aboutOpen" class="container mx-auto p-6 fade-in" x-cloak>
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-blue-900">DAMAYAN ABOUT US</h1>
+        </header>
+        <section class="bg-white p-6 rounded-lg shadow-md mb-6">
+
+            <div class="space-y-4">
+                <div class="max-w-5xl mx-auto text-center">
+                    <h2 class="text-xl font-semibold text-gray-600">TESTIMONIALS</h2>
+                    <h1 class="text-3xl font-bold mt-2">What Our Customers Say About Us</h1>
+                    <p class="mt-3 text-gray-700">
+                        GPFCI Life Plan strongly believes in the quality and value of its memorial products and services;
+                        thus, it dares to say that
+                    </p>
+                    <p class="text-lg font-bold text-purple-700 mt-1">Nawa'y Bawat Pamilya May GPFCI Life Plan!</p>
+                </div>
+
+                <div class="max-w-5xl mx-auto mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <p class="italic">"I believe that GPFCI is a good and credible company that delivers their services
+                            with excellence and they complied with everything that they had promised to us, as their clients.
+                            I will definitely recommend GPFCI to my family and friends."
+                        </p>
+                        <p class="mt-4 font-semibold">Mrs. Anadina C. Felomino</p>
+                        <p class="text-sm text-gray-500">Koronadal Branch</p>
+                        <p class="text-sm text-gray-500">GPFCI Planholder since 1995</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <p class="italic">"I decided to buy a policy for me and my husband because ever since I was always interested in insurance for future purposes.
+                            The plans are worth the purchase. I have a reliable Sales Agent with good character and relationship towards me and my other colleagues who have also purchased from them.
+                            The staff & personnel are very accommodating, responsive, and courteous. Thank you GPFCI!"
+                        </p>
+                        <p class="mt-4 font-semibold">Mila T. Garcia</p>
+                        <p class="text-sm text-gray-500">Butuan East and Butuan West Branches</p>
+                        <p class="text-sm text-gray-500">GPFCI Planholder since 1999</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <p class="italic">"Ako po si Yolanda Laberon Eclipse, planholder ng GPFCI Life Plan ay nagsasabing naging maganda ang serbisyo ng kumpanya sa akin at sa aking pamilya.
+                            Nang matapos kong mahulugan for 5 years ang aking first plan it was assigned to my father back in 2012.
+                            The purpose of having or buying a GPFCI Life Plan is to be secured. Being a planholder feels good!
+                            Now, I got 3 GPFCI Life Plans and I will really recommend more people to be the future clients of the company."
+                        </p>
+                        <p class="mt-4 font-semibold">Yolanda L. Eclipse</p>
+                        <p class="text-sm text-gray-500">Catbalogan Branch</p>
+                        <p class="text-sm text-gray-500">GPFCI Planholder since 2005</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
     </div>
 
     <div x-show="benefitsOpen" class="container mx-auto p-6 fade-in" x-cloak>
