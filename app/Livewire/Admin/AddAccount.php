@@ -4,8 +4,12 @@ namespace App\Livewire\Admin;
 use App\Models\User;
 use App\Models\approved_members as am;
 use Livewire\Component;
+use App\Mail\AccountCreated;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+
+
 
 class AddAccount extends Component
 {
@@ -34,7 +38,7 @@ class AddAccount extends Component
             'password' => Hash::make($this->password),
             'is_admin' => 0,
         ]);
-
+        $this->sendEmailNotification($this->email, $this->email, $this->password);
         session()->flash('message', 'Account created successfully!');
         $this->reset();
     }
@@ -71,6 +75,28 @@ class AddAccount extends Component
         $this->reset();
     }
 
+    private function sendEmailNotification($email, $username, $password)
+{
+    $subject = "Account Created - VERDEFY";
+
+    $message = "
+        <p>Dear {$this->name},</p>
+        <p>Your account has been successfully created.</p>
+        <p><strong>Login Credentials:</strong></p>
+        <ul>
+            <li><strong>Email:</strong> {$username}</li>
+            <li><strong>Password:</strong> {$password}</li>
+        </ul>
+        <p>Please change your password after logging in.</p>
+        <p>Thank you,<br>VERDEFY Team</p>
+    ";
+
+    Mail::raw(strip_tags($message), function ($mail) use ($email, $subject, $message) {
+        $mail->to($email)
+            ->subject($subject)
+            ->html($message); // Use .html() if sending HTML emails
+    });
+}
     public function deleteAccount($id)
     {
         User::findOrFail($id)->delete();

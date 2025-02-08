@@ -222,7 +222,7 @@ window.addEventListener('scroll', function() {
     <div class="p-10 rounded-lg shadow-sm text-blue-500 hero-background h-screen">
         <div class="flex flex-col md:flex-row items-center gap-8">
             <div class="md:w-1/2 text-center md:text-left">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4 typing-effect">CPFCI Life Plan</h1>
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 typing-effect">GPFCI Life Plan</h1>
                 <p class="text-xl md:text-2xl mb-6 mt-4">
                     <span class="text-yellow-300 font-semibold bg-violet-500 p-2 rounded-lg">Nawa'y bawat Pamilya May GPFCI Life Plan!</span>
                 </p>
