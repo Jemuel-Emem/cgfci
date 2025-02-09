@@ -6,6 +6,7 @@
         <thead>
             <tr class="bg-gray-200 text-left text-sm font-semibold">
                 <th class="py-2 px-4">Member ID</th>
+                <th class="py-2 px-4">Email</th>
                 <th class="py-2 px-4">Name</th>
                 <th class="py-2 px-4">Address</th>
                 <th class="py-2 px-4">Religion</th>
@@ -18,6 +19,7 @@
             @foreach($members as $member)
                 <tr class="border-t">
                     <td class="py-2 px-4">{{ $member->id }}</td>
+                    <td class="py-2 px-4">{{ $member->email }}</td>
                     <td class="py-2 px-4">{{ $member->first_name }} {{ $member->middle_initial }} {{ $member->last_name }}</td>
                     <td class="py-2 px-4">{{ $member->address }}</td>
                     <td class="py-2 px-4">{{ $member->religion }}</td>

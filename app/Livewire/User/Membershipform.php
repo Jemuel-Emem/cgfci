@@ -15,6 +15,7 @@ class Membershipform extends Component
     public $middle_initial;
     public $last_name;
     public $address;
+    public $email;
     public $birthdate;
     public $religion;
     public $join_date;
@@ -85,6 +86,7 @@ class Membershipform extends Component
         'first_name' => 'required|string',
         'last_name' => 'required|string',
         'address' => 'required|string',
+        'email' => 'required|string',
         'birthdate' => 'required|date',
         'religion' => 'required|string',
         'join_date' => 'required|date',
@@ -101,6 +103,7 @@ class Membershipform extends Component
         'middle_initial' => $this->middle_initial,
         'last_name' => $this->last_name,
         'address' => $this->address,
+        'email' => $this->email,
         'birthdate' => $this->birthdate,
         'religion' => $this->religion,
         'join_date' => $this->join_date,

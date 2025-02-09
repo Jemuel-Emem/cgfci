@@ -18,6 +18,7 @@ return new class extends Migration
     $table->string('middle_initial')->nullable();
     $table->string('last_name');
     $table->string('address');
+    $table->string('email');
     $table->date('birthdate');
     $table->string('religion');
     $table->date('join_date');

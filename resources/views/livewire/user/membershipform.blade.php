@@ -38,6 +38,11 @@
         </div>
 
         <div class="mb-4">
+            <label class="block font-semibold mb-1">Email:</label>
+            <input wire:model="email" type="text" placeholder="email" class="border px-4 py-2 rounded w-full">
+            @error('email') <span class="text-red-500">{{ $message }}</span> @enderror
+        </div>
+        <div class="mb-4">
             <label class="block font-semibold mb-1">Birthdate (mm/dd/yy):</label>
             <input wire:model="birthdate" type="date" class="border px-4 py-2 rounded w-full">
             @error('birthdate') <span class="text-red-500">{{ $message }}</span> @enderror
