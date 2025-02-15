@@ -11,6 +11,7 @@
                 <th class="py-2 px-4">Address</th>
                 <th class="py-2 px-4">Religion</th>
                 <th class="py-2 px-4">Membership Fee</th>
+                <th class="py-2 px-4">Action</th>
 
 
             </tr>
@@ -26,6 +27,9 @@
                     <td  class="py-2 px-4">@if ($member->membership_fee)
                         <img src="{{ asset('storage/' . $member->membership_fee) }}" class="w-32 h-32 object-cover">
                     @endif</td>
+                    <td>
+                        <a href="{{ route('admin.add_account') }}" class="bg-blue-700 p-1 text-white rounded-md hover:bg-blue-900">Create Account</a>
+                    </td>
 
 
 

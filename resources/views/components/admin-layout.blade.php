@@ -94,21 +94,33 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="{{ route('admin.membership') }}"
-                        class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <i class="ri-group-2-fill"></i>
-                        <span class="ml-3">Membership</span>
-                    </a>
-                </li>
+                @php
+                use App\Models\members;
+                $approvedMemberCount =members::count();
+            @endphp
 
-                <li>
+            <li>
+                <a href="{{ route('admin.membership') }}"
+                    class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 relative">
+                    <i class="ri-group-2-fill"></i>
+                    <span class="ml-3">Membership</span>
+
+                    @if($approvedMemberCount > 0)
+                        <span
+                            class="ml-2 px-2 py-1 text-xs font-semibold text-white bg-red-500 rounded-full">
+                            {{ $approvedMemberCount }}
+                        </span>
+                    @endif
+                </a>
+            </li>
+
+                {{-- <li>
                     <a href="{{ route('admin.add_account') }}"
                         class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                         <i class="ri-group-2-fill"></i>
                         <span class="ml-3">Create Account</span>
                     </a>
-                </li>
+                </li> --}}
 
 
                 {{-- <li>
