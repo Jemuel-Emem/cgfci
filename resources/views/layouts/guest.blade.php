@@ -16,7 +16,7 @@
 
     <style>
         .background-image {
-            background-image: url('{{ asset('images/fam.jpg') }}');
+            background-image: url('{{ asset('images/Screenshot 2025-02-15 210226.png') }}');
             background-size: cover;
             background-position: center;
             opacity: 0.25;

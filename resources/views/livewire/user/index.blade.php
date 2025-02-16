@@ -17,7 +17,7 @@
 
             <div class="">
                 <div class="">
-                    <img src="{{ asset('images/fam.jpg') }}" alt="Family Care" class="rounded-lg shadow-lg image-animation">
+                    <img src="{{ asset('images/Screenshot 2025-02-15 210226.png') }}" alt="Family Care" class="rounded-lg shadow-lg image-animation border border-info-700" style="width: 500px; hieght:300px;:">
             </div>
         </div>
     </div>
