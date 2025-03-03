@@ -1,7 +1,7 @@
 <div>
     <h1 class="text-xl font-bold mb-4">Members</h1>
 
-    <!-- Members Table -->
+
     <table class="min-w-full bg-white shadow-md rounded">
         <thead>
             <tr class="bg-gray-200 text-left text-sm font-semibold">
@@ -11,6 +11,7 @@
                 <th class="py-2 px-4">Address</th>
                 <th class="py-2 px-4">Religion</th>
                 <th class="py-2 px-4">Membership Fee</th>
+                <th class="py-2 px-4">Benefeciaries</th>
                 <th class="py-2 px-4">Action</th>
 
 
@@ -27,6 +28,13 @@
                     <td  class="py-2 px-4">@if ($member->membership_fee)
                         <img src="{{ asset('storage/' . $member->membership_fee) }}" class="w-32 h-32 object-cover">
                     @endif</td>
+                    <td class="py-2 px-4">
+                        <button
+                            class=" text-green-500 px-3 py-1 rounded hover:text-green-600"
+                            wire:click="viewBeneficiaries({{ $member->id }})">
+                            View Beneficiaries
+                        </button>
+                    </td>
                     <td>
                         <a href="{{ route('admin.add_account') }}" class="bg-blue-700 p-1 text-white rounded-md hover:bg-blue-900">Create Account</a>
                     </td>
