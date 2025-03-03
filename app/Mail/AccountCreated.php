@@ -22,7 +22,7 @@ class AccountCreated extends Mailable
 
     public function build()
     {
-        return $this->subject('Account Created - VERDEFY')
+        return $this->subject('Account Created - VERIFY')
                     ->view('emails.account-created');
     }
 }

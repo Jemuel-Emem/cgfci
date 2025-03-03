@@ -25,7 +25,7 @@ class MonthlyPayment extends Component
             $fee->status = 'approved';
             $fee->save();
 
-            $this->sendEmailNotification($fee->user->email, 'approved');
+            $this->sendEmailNotification($fee->user->email, 'RECEIVED');
 
             session()->flash('message', 'Fee approved successfully.');
             $this->mount();
@@ -43,7 +43,7 @@ class MonthlyPayment extends Component
             $fee->save();
 
 
-            $this->sendEmailNotification($fee->user->email, 'cancelled');
+            $this->sendEmailNotification($fee->user->email, 'DECLINE');
 
             session()->flash('message', 'Fee cancelled successfully.');
             $this->mount();

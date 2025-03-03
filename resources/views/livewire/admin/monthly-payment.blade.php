@@ -39,12 +39,12 @@
                             <button
                                 class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
                                 wire:click="approveFee({{ $fee->id }})">
-                                Approve
+                                RECEIVED
                             </button>
                             <button
                                 class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 ml-2"
                                 wire:click="cancelFee({{ $fee->id }})">
-                                Cancel
+                                DECLINE
                             </button>
                         @else
                             <button

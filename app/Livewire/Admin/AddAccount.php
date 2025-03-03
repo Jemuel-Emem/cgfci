@@ -77,7 +77,7 @@ class AddAccount extends Component
 
     private function sendEmailNotification($email, $username, $password)
 {
-    $subject = "Account Created - VERDEFY";
+    $subject = "Account Created - VERIFY";
 
     $message = "
         <p>Dear {$this->name},</p>
@@ -88,7 +88,7 @@ class AddAccount extends Component
             <li><strong>Password:</strong> {$password}</li>
         </ul>
         <p>Please change your password after logging in.</p>
-        <p>Thank you,<br>VERDEFY Team</p>
+        <p>Thank you,<br>GPFCI Team</p>
     ";
 
     Mail::raw(strip_tags($message), function ($mail) use ($email, $subject, $message) {
