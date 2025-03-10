@@ -17,16 +17,20 @@
         <table class="w-full border-collapse border border-gray-300">
             <thead>
                 <tr class="bg-gray-100">
-                    <th class="border border-gray-300 px-4 py-2 text-xl">Amount</th>
+  <th class="border border-gray-300 px-4 py-2 text-xl">Date</th>
                     <th class="border border-gray-300 px-4 py-2 text-xl">Receipt</th>
                     <th class="border border-gray-300 px-4 py-2 text-xl">Status</th>
-                    <th class="border border-gray-300 px-4 py-2 text-xl">Date</th>
+
+                    <th class="border border-gray-300 px-4 py-2 text-xl">Amount</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($fees as $fee)
                     <tr>
-                        <td class="border border-gray-300 px-4 py-2 text-center text-xl">{{ $fee->amount ?? 'N/A' }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center text-xl">
+                            {{ $fee->created_at->format('Y-m-d') }}
+                        </td>
+
                         <td class="border border-gray-300 px-4 py-2 text-center text-xl">
                             @if($fee->receipt)
                                 <a href="{{ asset('storage/' . $fee->receipt) }}" target="_blank" class="text-blue-500 underline">View</a>
@@ -35,9 +39,7 @@
                             @endif
                         </td>
                         <td class="border border-gray-300 px-4 py-2 text-center text-xl">{{ ucfirst($fee->status) }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center text-xl">
-                            {{ $fee->created_at->format('Y-m-d') }}
-                        </td>
+                        <td class="border border-gray-300 px-4 py-2 text-center text-xl">{{ $fee->amount ?? 'N/A' }}</td>
                     </tr>
                 @empty
                     <tr>
