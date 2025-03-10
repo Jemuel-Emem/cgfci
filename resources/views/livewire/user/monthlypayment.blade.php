@@ -17,25 +17,25 @@
         <table class="w-full border-collapse border border-gray-300">
             <thead>
                 <tr class="bg-gray-100">
-                    <th class="border border-gray-300 px-4 py-2">Amount</th>
-                    <th class="border border-gray-300 px-4 py-2">Receipt</th>
-                    <th class="border border-gray-300 px-4 py-2">Status</th>
-                    <th class="border border-gray-300 px-4 py-2">Date</th>
+                    <th class="border border-gray-300 px-4 py-2 text-xl">Amount</th>
+                    <th class="border border-gray-300 px-4 py-2 text-xl">Receipt</th>
+                    <th class="border border-gray-300 px-4 py-2 text-xl">Status</th>
+                    <th class="border border-gray-300 px-4 py-2 text-xl">Date</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($fees as $fee)
                     <tr>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $fee->amount ?? 'N/A' }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">
+                        <td class="border border-gray-300 px-4 py-2 text-center text-xl">{{ $fee->amount ?? 'N/A' }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center text-xl">
                             @if($fee->receipt)
                                 <a href="{{ asset('storage/' . $fee->receipt) }}" target="_blank" class="text-blue-500 underline">View</a>
                             @else
                                 <span class="text-gray-500">No receipt</span>
                             @endif
                         </td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">{{ ucfirst($fee->status) }}</td>
-                        <td class="border border-gray-300 px-4 py-2 text-center">
+                        <td class="border border-gray-300 px-4 py-2 text-center text-xl">{{ ucfirst($fee->status) }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center text-xl">
                             {{ $fee->created_at->format('Y-m-d') }}
                         </td>
                     </tr>
@@ -48,8 +48,8 @@
 
             <tfoot>
                 <tr class="bg-gray-100">
-                    <td colspan="3" class="text-right font-semibold px-4 py-2">Total Payments:</td>
-                    <td class="text-center font-semibold px-4 py-2">{{ $approvedTotal }}</td>
+                    <td colspan="3" class="text-right font-semibold px-4 py-2 text-xl">Total Payments:</td>
+                    <td class="text-center font-semibold px-4 py-2 text-xl text-blue-500" >{{ $approvedTotal }}</td>
                 </tr>
             </tfoot>
         </table>

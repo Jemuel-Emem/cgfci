@@ -3,7 +3,6 @@
         <div>
             <span class="font-semibold text-lg">Monthly Fees</span>
         </div>
-
     </div>
 
     @if(session()->has('message'))
@@ -53,15 +52,47 @@
                                 Action Disabled
                             </button>
                         @endif
+
+                        <button wire:click="openModal({{ $fee->id }})"
+                            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                            Send Email
+                        </button>
                     </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="3" class="border border-gray-300 px-4 py-2 text-center">
+                    <td colspan="4" class="border border-gray-300 px-4 py-2 text-center">
                         No records found.
                     </td>
                 </tr>
             @endforelse
         </tbody>
     </table>
+
+    {{-- Email Modal --}}
+    <div x-data="{ open: @entangle('showModal') }">
+        <div x-show="open" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+            <div class="bg-white w-1/3 rounded-lg shadow-lg p-6">
+                <h2 class="text-lg font-bold mb-4">Send Email</h2>
+
+                <form wire:submit.prevent="sendCustomEmail">
+                    <label for="emailMessage" class="block text-gray-700">Message:</label>
+                    <textarea wire:model.defer="emailMessage"
+                        class="w-full border border-gray-300 rounded p-2 mb-4 h-32" required></textarea>
+
+                    <div class="flex justify-end">
+                        <button type="button" wire:click="closeModal"
+                            class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 mr-2">
+                            Cancel
+                        </button>
+
+                        <button type="submit"
+                            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                            Send
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

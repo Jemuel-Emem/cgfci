@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Mail;
 class MonthlyPayment extends Component
 {
     public $fees;
-
+    public $emailMessage = '';
+    public $selectedFeeId;
+    public $showModal = false;
     public function mount()
     {
         $this->fees = ApprovedMember::all();
@@ -66,8 +68,37 @@ class MonthlyPayment extends Component
         });
 
     }
+    public function openModal($feeId)
+    {
+        $this->selectedFeeId = $feeId;
+        $this->showModal = true; // Open modal
+    }
 
-    public function render()
+    public function closeModal()
+    {
+        $this->showModal = false; // Close modal
+        $this->reset('selectedFeeId', 'emailMessage');
+    }
+
+    public function sendCustomEmail()
+    {
+        $fee = ApprovedMember::with('user')->find($this->selectedFeeId);
+
+        if ($fee && $fee->user && $fee->user->email) {
+            Mail::send([], [], function ($mail) use ($fee) {
+                $mail->to($fee->user->email)
+                    ->subject('Custom Message from GPFCI')
+                    ->html("<p>Dear User,</p><p>{$this->emailMessage}</p><p>Thank you,<br>GPFCI Team</p>");
+            });
+
+            session()->flash('message', 'Email sent successfully.');
+            $this->closeModal(); // Close modal after sending email
+        } else {
+            session()->flash('error', 'User not found or email is missing.');
+        }
+
+
+    }    public function render()
     {
         return view('livewire.admin.monthly-payment');
     }
