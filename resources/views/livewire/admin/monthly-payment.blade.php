@@ -25,7 +25,9 @@
                 <tr>
                     <td class="border border-gray-300 px-4 py-2">
                         @if($fee->receipt)
-                            <img src="{{ asset('storage/' . $fee->receipt) }}" alt="Receipt" class="w-16 h-16 object-cover">
+                            <a href="{{ asset('storage/' . $fee->receipt) }}" target="_blank" rel="noopener noreferrer">
+                                <img src="{{ asset('storage/' . $fee->receipt) }}" alt="Receipt" class="w-16 h-16 object-cover hover:opacity-75 transition-opacity">
+                            </a>
                         @else
                             <span class="text-gray-500">No payment</span>
                         @endif

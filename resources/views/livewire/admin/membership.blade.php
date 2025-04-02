@@ -25,9 +25,15 @@
                     <td class="py-2 px-4">{{ $member->first_name }} {{ $member->middle_initial }} {{ $member->last_name }}</td>
                     <td class="py-2 px-4">{{ $member->address }}</td>
                     <td class="py-2 px-4">{{ $member->religion }}</td>
-                    <td  class="py-2 px-4">@if ($member->membership_fee)
-                        <img src="{{ asset('storage/' . $member->membership_fee) }}" class="w-32 h-32 object-cover">
-                    @endif</td>
+                    <td class="py-2 px-4">
+                        @if ($member->membership_fee)
+                            <a href="{{ asset('storage/' . $member->membership_fee) }}" target="_blank" rel="noopener noreferrer" class="inline-block">
+                                <img src="{{ asset('storage/' . $member->membership_fee) }}"
+                                     alt="Membership Fee Receipt"
+                                     class="w-32 h-32 object-cover hover:opacity-80 transition-opacity duration-200 cursor-pointer">
+                            </a>
+                        @endif
+                    </td>
                     <td class="py-2 px-4">
                         <button
                             class=" text-green-500 px-3 py-1 rounded hover:text-green-600"
