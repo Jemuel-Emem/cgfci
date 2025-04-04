@@ -13,6 +13,7 @@ class approved_members extends Model
         'amount',
         'receipt',
         'status',
+
     ];
 
     public function user()

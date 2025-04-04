@@ -38,7 +38,9 @@ class MonthlyPayment extends Component
 
     public function cancelFee($feeId)
     {
-        $fee = ApprovedMember::find($feeId);
+        // $fee = ApprovedMember::find($feeId);
+        $fee = ApprovedMember::with('user')->find($feeId);
+
 
         if ($fee) {
             $fee->status = 'cancelled';

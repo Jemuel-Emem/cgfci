@@ -15,6 +15,7 @@
         <thead>
             <tr class="bg-gray-100">
                 <th class="border border-gray-300 px-4 py-2 text-left">Receipt</th>
+                <th class="border border-gray-300 px-4 py-2 text-left">Name</th>
                 <th class="border border-gray-300 px-4 py-2 text-left">Amount</th>
                 <th class="border border-gray-300 px-4 py-2 text-left">Status</th>
                 <th class="border border-gray-300 px-4 py-2 text-left">Actions</th>
@@ -31,6 +32,9 @@
                         @else
                             <span class="text-gray-500">No payment</span>
                         @endif
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2">
+                        {{ $fee->user->name ?? 'No user linked' }}
                     </td>
                     <td class="border border-gray-300 px-4 py-2">{{ ucfirst($fee->amount) }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ ucfirst($fee->status) }}</td>

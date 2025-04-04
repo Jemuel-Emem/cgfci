@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->decimal('amount', 10, 2)->nullable();
+           // $table->string('name')->nullable();
             $table->string('receipt')->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();
